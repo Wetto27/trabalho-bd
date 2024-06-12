@@ -1,27 +1,30 @@
 package Model.Tables.DAO;
 
 import Model.Classes.autores;
+import Model.Classes.empregados;
+import com.mysql.cj.jdbc.ConnectionImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static javax.management.remote.JMXConnectorFactory.connect;
 
-public class autoresDAO extends ConnectionDAO{
+public class autoresDAO extends ConnectionDAO {
 
     boolean sucesso = false;
 
-    //------------------------INSERIR NOVO REGISTRO DE CLIENTE NO DATABASE----------------------------
-    public boolean insertAutores(autores autor) {
+    //------------------------INSERIR NOVO REGISTRO DE AUTOR NO DATABASE----------------------------
+    public boolean insertAutores(autores autores) {
 
         connect();
 
-        String sql = "insert into autores (IdAutor, nome, email) values(?,?,?)";
+        String sql = "insert into autores (id, nome, email) values(?,?,?)";
 
-        try{
+        try {
             pst = connection.prepareStatement(sql);
-            pst.setInt(1,autor.getId());
-            pst.setString(2, autor.getNome());
-            pst.setString(3,autor.getEmail());
+            pst.setInt(1, autores.getId());
+            pst.setString(2, autores.getNome());
+            pst.setString(3, autores.getEmail());
             pst.execute();
             sucesso = true;
         } catch (SQLException ex) {
@@ -39,25 +42,56 @@ public class autoresDAO extends ConnectionDAO{
 
     }
 
-    //------------------------SELECIONAR CLIENTE POR CPF NO DATABASE----------------------------
-    public boolean selectAutoresID(int id) {
+    //------------------------DELETANDO AUTOR DO DATABASE----------------------------
+    public boolean deleteAutor(int id) {
 
         connect();
-        boolean verificado = false;
+
+        String sql = "DELETE FROM autores WHERE id =?";
+
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, id);
+            pst.execute();
+            sucesso = true;
+        } catch (SQLException ex) {
+            System.out.println("Erro = " + ex.getMessage());
+            sucesso = false;
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException ex) {
+                System.out.println("Erro = " + ex.getMessage());
+            }
+        }
+        return sucesso;
+    }
+
+    //------------------------BUSCAR AUTOR NO DATABASE----------------------------
+    public void selectAutor() {
+        ArrayList<autores> listaDeLivros = new ArrayList<>();
+
+        connect();
 
         String sql = "SELECT * FROM autores";
+
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql); // ref. a tabela resultante da busca
+            resultSet = statement.executeQuery(sql); //ref. a tabela resultante da busca
             while (resultSet.next()) {
+
                 autores autorTemp = new autores(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"));
-                if(autorTemp.getId() == id) {
-                    verificado = true;
-                }
+                System.out.println("Id = " + autorTemp.getId());
+                System.out.println("Nome = " + autorTemp.getNome());
+                System.out.println("Email = " + autorTemp.getEmail());
+                System.out.println("---------------------------------");
+                listaDeLivros.add(autorTemp);
             }
+            sucesso = true;
         } catch (SQLException ex) {
             System.out.println("Erro = " + ex.getMessage());
-            verificado = false;
+            sucesso = false;
         } finally {
             try {
                 connection.close();
@@ -66,45 +100,5 @@ public class autoresDAO extends ConnectionDAO{
                 System.out.println("Erro = " + ex.getMessage());
             }
         }
-        return verificado;
     }
-
-    //------------------------SELECIONAR NOME E EMAIL DE AUTOR ESPECÌFICO NO DATABASE----------------------------
-    public String selectAutorNomeEmail(int id) {
-
-        connect();
-
-        String nome = null;
-        String email = null;
-        String sql = "SELECT * FROM autores";
-
-        try {
-
-            pst = connection.prepareStatement(sql);
-            resultSet = pst.executeQuery();
-
-            while(resultSet.next()) {
-                autores autorTemp = new autores(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"));
-
-                if(autorTemp.getId() == id) {
-                    nome = autorTemp.getNome();
-                    email = autorTemp.getEmail();
-                }
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("Erro = " + ex.getMessage());
-        } finally {
-            try {
-                connection.close();
-                statement.close();
-            } catch (SQLException ex) {
-                System.out.println("Erro = " + ex.getMessage());
-            }
-        }
-        String info = nome + "" + email;
-        return info;
-    }
-
-
 }

@@ -37,7 +37,7 @@ public class livrosDAO extends ConnectionDAO{
                 System.out.println("Erro de conexao = " + e.getMessage());
             }
         }
-         return sucesso;
+        return sucesso;
     }
 
     //------------------------BUSCAR LIVROS NO DATABASE----------------------------
@@ -123,7 +123,7 @@ public class livrosDAO extends ConnectionDAO{
 
             while(resultSet.next()) {
                 livros livroTemp = new livros(resultSet.getInt("Idlivro"), resultSet.getString("Titulo"), resultSet.getString("Autores"), resultSet.getString("Tema"),resultSet.getString("Empregado CPF"));
-                        autores = livroTemp.getAutores();
+                autores = livroTemp.getAutores();
             }
         } catch (SQLException ex) {
             System.out.println("Erro = " + ex.getMessage());

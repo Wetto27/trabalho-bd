@@ -63,8 +63,6 @@ public class autoresTemLivrosDAO extends ConnectionDAO{
         return verifica;
     }
 
-    //------------------------BUSCAR LIVROS RELACIONADOS A UM AUTOR ESPECIFICO NO DATABASE----------------------------
-
     //------------------------DELETAR TODAS AS RELAÇÕES DE UM AUTOR ESPECIFICO----------------------------
     public boolean deleteFromAutorHasLivro(int idAutor) {
 

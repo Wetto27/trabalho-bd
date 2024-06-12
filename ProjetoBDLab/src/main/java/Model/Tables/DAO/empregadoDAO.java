@@ -10,7 +10,7 @@ public class empregadoDAO extends ConnectionDAO {
 
     boolean sucesso = false;
 
-    //------------------------INSERIR NOVO REGISTRO DE CLIENTE NO DATABASE----------------------------
+    //------------------------INSERIR NOVO REGISTRO DE EMPREGADO NO DATABASE----------------------------
     public boolean insertEmpregado(empregados empregados) {
 
         connect();
@@ -38,7 +38,7 @@ public class empregadoDAO extends ConnectionDAO {
         return sucesso;
     }
 
-    //------------------------SELECIONAR CLIENTE POR CPF NO DATABASE----------------------------
+    //------------------------SELECIONAR EMPREGADO POR CPF NO DATABASE----------------------------
     public boolean selectEmpregadoCPF(String cpf) {
 
         connect();
@@ -101,6 +101,8 @@ public class empregadoDAO extends ConnectionDAO {
         }
         return nome;
     }
+
+    // deletando empregado
     public boolean deleteEmpregado(String cpf) {
 
         connect();
