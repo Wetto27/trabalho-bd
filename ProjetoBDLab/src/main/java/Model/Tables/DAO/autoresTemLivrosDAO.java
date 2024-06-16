@@ -41,7 +41,7 @@ public class autoresTemLivrosDAO extends ConnectionDAO{
 
         connect();
         boolean verifica;
-        String sql = "DELETE FROM autores_tem_livros WHERE Id_Autor = ? AND Id_Livro = ?";
+        String sql = "DELETE FROM autores_tem_livros WHERE autores_id = ? AND livros_id = ?";
 
         try {
             pst = connection.prepareStatement(sql);

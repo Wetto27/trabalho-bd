@@ -63,7 +63,6 @@ public class Main {
             System.out.println("8 - Mostrar todos autores");
             System.out.println("9 - Alterar email do autor");
             System.out.println("10 - Sair");
-            System.out.print("\nOpção: ");
             int op = sc.nextInt();
             sc.nextLine();
 
@@ -190,10 +189,6 @@ public class Main {
                     flag = false;
                     break;
             }
-
-
         }
-
-
     }
 }
