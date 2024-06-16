@@ -42,21 +42,21 @@ public class autoresDAO extends ConnectionDAO {
 
     }
 
-    //------------------------DELETANDO AUTOR DO DATABASE----------------------------
-    public boolean deleteAutor(int id) {
+    //------------------------ALTERANDO INFORMAÇÕES DO AUTOR NO DATABASE----------------------------
+    public boolean updateAutor(int id, String novoEmail) {
 
         connect();
-
-        String sql = "DELETE FROM autores WHERE id =?";
-
+        boolean validado;
+        String sql = "UPDATE autores SET email= ? WHERE id=?";
         try {
             pst = connection.prepareStatement(sql);
-            pst.setInt(1, id);
+            pst.setString(1, novoEmail);
+            pst.setInt(2, id);
             pst.execute();
-            sucesso = true;
+            validado = true;
         } catch (SQLException ex) {
             System.out.println("Erro = " + ex.getMessage());
-            sucesso = false;
+            validado = false;
         } finally {
             try {
                 connection.close();
@@ -65,40 +65,66 @@ public class autoresDAO extends ConnectionDAO {
                 System.out.println("Erro = " + ex.getMessage());
             }
         }
-        return sucesso;
+        return validado;
     }
 
-    //------------------------BUSCAR AUTOR NO DATABASE----------------------------
-    public void selectAutor() {
-        ArrayList<autores> listaDeLivros = new ArrayList<>();
+//------------------------DELETANDO AUTOR DO DATABASE----------------------------
+public boolean deleteAutor(int id) {
 
-        connect();
+    connect();
 
-        String sql = "SELECT * FROM autores";
+    String sql = "DELETE FROM autores WHERE id =?";
 
+    try {
+        pst = connection.prepareStatement(sql);
+        pst.setInt(1, id);
+        pst.execute();
+        sucesso = true;
+    } catch (SQLException ex) {
+        System.out.println("Erro = " + ex.getMessage());
+        sucesso = false;
+    } finally {
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql); //ref. a tabela resultante da busca
-            while (resultSet.next()) {
-
-                autores autorTemp = new autores(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"));
-                System.out.println("Id = " + autorTemp.getId());
-                System.out.println("Nome = " + autorTemp.getNome());
-                System.out.println("Email = " + autorTemp.getEmail());
-                System.out.println("---------------------------------");
-                listaDeLivros.add(autorTemp);
-            }
-            sucesso = true;
+            connection.close();
+            pst.close();
         } catch (SQLException ex) {
             System.out.println("Erro = " + ex.getMessage());
-            sucesso = false;
-        } finally {
-            try {
-                connection.close();
-                statement.close();
-            } catch (SQLException ex) {
-                System.out.println("Erro = " + ex.getMessage());
-            }
         }
     }
+    return sucesso;
+}
+
+//------------------------BUSCAR AUTOR NO DATABASE----------------------------
+public void selectAutor() {
+    ArrayList<autores> listaDeLivros = new ArrayList<>();
+
+    connect();
+
+    String sql = "SELECT * FROM autores";
+
+    try {
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery(sql); //ref. a tabela resultante da busca
+        while (resultSet.next()) {
+
+            autores autorTemp = new autores(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"));
+            System.out.println("Id = " + autorTemp.getId());
+            System.out.println("Nome = " + autorTemp.getNome());
+            System.out.println("Email = " + autorTemp.getEmail());
+            System.out.println("---------------------------------");
+            listaDeLivros.add(autorTemp);
+        }
+        sucesso = true;
+    } catch (SQLException ex) {
+        System.out.println("Erro = " + ex.getMessage());
+        sucesso = false;
+    } finally {
+        try {
+            connection.close();
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro = " + ex.getMessage());
+        }
+    }
+}
 }

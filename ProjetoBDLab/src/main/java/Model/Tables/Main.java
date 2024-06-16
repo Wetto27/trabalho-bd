@@ -1,11 +1,11 @@
 package Model.Tables;
 
 import Model.Classes.autores;
-import Model.Classes.clientes;
 import Model.Classes.empregados;
 import Model.Classes.livros;
 import Model.Tables.DAO.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -43,9 +43,9 @@ public class Main {
         // Informacoes do livro
         int idLivro;
         String titulo;
-        String autorLivro;
+        String autores;
         String tema;
-        String empregadoCPF;
+        String empregado_cpf;
 
 
         while (flag) {
@@ -56,12 +56,13 @@ public class Main {
             System.out.println("1 - Adicionar funcionario");
             System.out.println("2 - Deletar funcionario");
             System.out.println("3 - Adicionar livro");
-            System.out.println("4 - Deletar livro");
-            System.out.println("5 - Pesquisar livro");
-            System.out.println("5 - Adicionar autor");
-            System.out.println("6 - Deletar autor");
-            System.out.println("7 - Mostrar todos autores");
-            System.out.println("8 - Sair");
+            System.out.println("4 - Listar livros");
+            System.out.println("5 - Buscar livro pelo titulo");
+            System.out.println("6 - Adicionar autor");
+            System.out.println("7 - Deletar autor");
+            System.out.println("8 - Mostrar todos autores");
+            System.out.println("9 - Alterar email do autor");
+            System.out.println("10 - Sair");
             System.out.print("\nOpção: ");
             int op = sc.nextInt();
             sc.nextLine();
@@ -94,7 +95,58 @@ public class Main {
                     empregadosDAO.deleteEmpregado(cpfFunc);
                     break;
 
+                case 3:
+                    System.out.println("\n==============================================================");
+                    System.out.println("                    Adicionar um novo livro                   ");
+                    System.out.println("==============================================================");
+
+                    System.out.print("\nID: ");
+                    idLivro = sc.nextInt();
+                    sc.nextLine(); // Consumir a nova linha
+
+                    System.out.print("Título: ");
+                    titulo = sc.nextLine();
+
+                    System.out.print("Autores: ");
+                    autores = sc.nextLine();
+
+                    System.out.print("Tema: ");
+                    tema = sc.nextLine();
+
+                    System.out.print("CPF do Empregado: ");
+                    empregado_cpf = sc.nextLine();
+
+                    livros novoLivro = new livros(idLivro, titulo, autores, tema, empregado_cpf);
+                    boolean sucesso = livroDAO.insertLivro(novoLivro);
+                    if (sucesso) {
+                        System.out.println("Livro adicionado com sucesso!");
+                    } else {
+                        System.out.println("Falha ao adicionar o livro.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("==============================================================");
+
+                    ArrayList<livros> listaDeLivros = livroDAO.selectLivro();
+                    for (livros livro : listaDeLivros) {
+                        System.out.println("ID: " + livro.getId() + ", Título: " + livro.getTitulo() + ", Autores: " + livro.getAutores() + ", Tema: " + livro.getTema() + ", CPF do Empregado: " + livro.getEmpregadoCPF());
+                    }
+                    break;
+
                 case 5:
+                    System.out.println("==============================================================");
+                    String tituloProcurado;
+                    tituloProcurado = sc.nextLine();
+
+                    ArrayList<livros> listaDeLivrosProcura = livroDAO.selectLivro();
+                    for (livros livro : listaDeLivrosProcura) {
+                        if(livro.getTitulo().equalsIgnoreCase(tituloProcurado))
+                            System.out.println("ID: " + livro.getId() + ", Título: " + livro.getTitulo() + ", Autores: " + livro.getAutores() + ", Tema: " + livro.getTema() + ", CPF do Empregado: " + livro.getEmpregadoCPF());
+                    }
+                    break;
+
+                case 6:
                     System.out.println("\n==============================================================");
                     System.out.println("                    Adicionando novo Autor                    ");
                     System.out.println("==============================================================");
@@ -122,6 +174,19 @@ public class Main {
                     break;
 
                 case 8:
+                    System.out.println("\n===============================================================");
+                    System.out.println("                     Alterar email do autor                    ");
+                    System.out.println("===============================================================");
+                    System.out.println("Informe o ID do autor");
+                    idAutor = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Informe o novo email");
+                    String novoEmail;
+                    novoEmail = sc.nextLine();
+                    autorDAO.updateAutor(idAutor,novoEmail);
+                    break;
+
+                case 9:
                     flag = false;
                     break;
             }

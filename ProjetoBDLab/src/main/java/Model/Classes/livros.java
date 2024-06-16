@@ -7,17 +7,17 @@ public class livros {
     private String titulo;
     private String autores;
     private String tema;;
-    private String empregadoCPF;
+    private String empregado_cpf;
 
     //Construtor dos livros
 
 
-    public livros(int id, String titulo, String autores, String tema, String empregadoCPF) {
+    public livros(int id, String titulo, String autores, String tema, String empregado_cpf) {
         this.id = id;
         this.titulo = titulo;
         this.autores = autores;
         this.tema = tema;
-        this.empregadoCPF = empregadoCPF;
+        this.empregado_cpf = empregado_cpf;
     }
 
     public int getId() {
@@ -37,6 +37,6 @@ public class livros {
     }
 
     public String getEmpregadoCPF() {
-        return empregadoCPF;
+        return empregado_cpf;
     }
 }
