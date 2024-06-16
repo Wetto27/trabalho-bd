@@ -61,7 +61,8 @@ public class Main {
             System.out.println("5 - Adicionar autor");
             System.out.println("6 - Deletar autor");
             System.out.println("7 - Mostrar todos autores");
-            System.out.println("8 - Sair");
+            System.out.println("8 - Alterar email do autor");
+            System.out.println("9 - Sair");
             System.out.print("\nOpção: ");
             int op = sc.nextInt();
             sc.nextLine();
@@ -122,13 +123,22 @@ public class Main {
                     break;
 
                 case 8:
+                    System.out.println("\n===============================================================");
+                    System.out.println("                     Alterar email do autor                    ");
+                    System.out.println("===============================================================");
+                    System.out.println("Informe o ID do autor");
+                    idAutor = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Informe o novo email");
+                    String novoEmail;
+                    novoEmail = sc.nextLine();
+                    autorDAO.updateAutor(idAutor,novoEmail);
+                    break;
+
+                case 9:
                     flag = false;
                     break;
             }
-
-
         }
-
-
     }
 }

@@ -101,4 +101,30 @@ public class autoresDAO extends ConnectionDAO {
             }
         }
     }
+
+    //------------------------ALTERANDO INFORMAÇÕES DO AUTOR NO DATABASE----------------------------
+    public boolean updateAutor(int id, String novoEmail) {
+
+        connect();
+        boolean validado;
+        String sql = "UPDATE autores SET email= ? WHERE id=?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, novoEmail);
+            pst.setInt(2, id);
+            pst.execute();
+            validado = true;
+        } catch (SQLException ex) {
+            System.out.println("Erro = " + ex.getMessage());
+            validado = false;
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException ex) {
+                System.out.println("Erro = " + ex.getMessage());
+            }
+        }
+        return validado;
+    }
 }
