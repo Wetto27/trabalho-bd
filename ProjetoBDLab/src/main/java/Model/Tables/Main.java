@@ -69,9 +69,9 @@ public class Main {
             switch (op) {
 
                 case 1:
-                    System.out.println("\n===============================================================");
-                    System.out.println("                   Criação de novo empregado                   ");
-                    System.out.println("===============================================================");
+                    System.out.println("\n===========================================================");
+                    System.out.println("                   Adicionando Empregado                   ");
+                    System.out.println("===========================================================");
 
                     System.out.println("\nPor favor entre com as informações abaixo: ");
 
@@ -95,9 +95,9 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("\n==============================================================");
-                    System.out.println("                    Adicionar um novo livro                   ");
-                    System.out.println("==============================================================");
+                    System.out.println("\n=======================================================");
+                    System.out.println("                    Adicionar Livro                    ");
+                    System.out.println("=======================================================");
 
                     System.out.print("\nID: ");
                     idLivro = sc.nextInt();
@@ -118,6 +118,7 @@ public class Main {
                     livros novoLivro = new livros(idLivro, titulo, autores, tema, empregado_cpf);
                     boolean sucesso = livroDAO.insertLivro(novoLivro);
                     if (sucesso) {
+                        autorTemLivroDAO.insertLivroOnAutor(idLivro, autores);
                         System.out.println("Livro adicionado com sucesso!");
                     } else {
                         System.out.println("Falha ao adicionar o livro.");
@@ -125,8 +126,9 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("==============================================================");
-
+                    System.out.println("\n==========================================================");
+                    System.out.println("                    Livros Cadastrados                    ");
+                    System.out.println("==========================================================");
                     ArrayList<livros> listaDeLivros = livroDAO.selectLivro();
                     for (livros livro : listaDeLivros) {
                         System.out.println("ID: " + livro.getId() + ", Título: " + livro.getTitulo() + ", Autores: " + livro.getAutores() + ", Tema: " + livro.getTema() + ", CPF do Empregado: " + livro.getEmpregadoCPF());
@@ -134,7 +136,9 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("==============================================================");
+                    System.out.println("\n====================================================");
+                    System.out.println("                    Buscar Livro                    ");
+                    System.out.println("====================================================");
                     String tituloProcurado;
                     tituloProcurado = sc.nextLine();
 
@@ -146,9 +150,9 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.println("\n==============================================================");
-                    System.out.println("                    Adicionando novo Autor                    ");
-                    System.out.println("==============================================================");
+                    System.out.println("\n============================================================");
+                    System.out.println("                    Adicionar novo Autor                    ");
+                    System.out.println("============================================================");
 
                     System.out.println("\nPor favor entre com as informações abaixo: ");
 
@@ -166,13 +170,22 @@ public class Main {
                     break;
 
                 case 7:
+                    System.out.println("\n===========================================================");
+                    System.out.println("                      Deletando Autor                      ");
+                    System.out.println("===========================================================");
+                    System.out.println("Nome do autor: ");
+                    nomeAutor = sc.nextLine();
+                    autorDAO.deleteAutor(nomeAutor);
+                    break;
+
+                case 8:
                     System.out.println("\n===============================================================");
                     System.out.println("                      Autores Cadastrados                      ");
                     System.out.println("===============================================================");
                     autorDAO.selectAutor();
                     break;
 
-                case 8:
+                case 9:
                     System.out.println("\n===============================================================");
                     System.out.println("                     Alterar email do autor                    ");
                     System.out.println("===============================================================");
@@ -185,7 +198,7 @@ public class Main {
                     autorDAO.updateAutor(idAutor,novoEmail);
                     break;
 
-                case 9:
+                case 10:
                     flag = false;
                     break;
             }

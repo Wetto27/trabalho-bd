@@ -43,15 +43,15 @@ public class autoresDAO extends ConnectionDAO {
     }
 
     //------------------------DELETANDO AUTOR DO DATABASE----------------------------
-    public boolean deleteAutor(int id) {
+    public boolean deleteAutor(String nome) {
 
         connect();
 
-        String sql = "DELETE FROM autores WHERE id =?";
+        String sql = "DELETE FROM autores WHERE nome =?";
 
         try {
             pst = connection.prepareStatement(sql);
-            pst.setInt(1, id);
+            pst.setString(1, nome);
             pst.execute();
             sucesso = true;
         } catch (SQLException ex) {
@@ -70,7 +70,7 @@ public class autoresDAO extends ConnectionDAO {
 
     //------------------------BUSCAR AUTOR NO DATABASE----------------------------
     public void selectAutor() {
-        ArrayList<autores> listaDeLivros = new ArrayList<>();
+        ArrayList<autores> listaDeAutores = new ArrayList<>();
 
         connect();
 
@@ -86,7 +86,7 @@ public class autoresDAO extends ConnectionDAO {
                 System.out.println("Nome = " + autorTemp.getNome());
                 System.out.println("Email = " + autorTemp.getEmail());
                 System.out.println("---------------------------------");
-                listaDeLivros.add(autorTemp);
+                listaDeAutores.add(autorTemp);
             }
             sucesso = true;
         } catch (SQLException ex) {

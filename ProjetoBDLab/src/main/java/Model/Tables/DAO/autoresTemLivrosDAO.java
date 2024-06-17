@@ -11,15 +11,15 @@ public class autoresTemLivrosDAO extends ConnectionDAO{
     boolean sucesso = false;
 
     //------------------------INSERIR NOVA RELAÇÂO NA TABELA N:M DE AUTORES E LIVROS----------------------------
-    public boolean insertAutorOnLivro(int livros_id, int autores_id){
+    public boolean insertLivroOnAutor(int livros_id, String autores_nome){
 
         connect();
-        String sql = "INSERT INTO autores_tem_livros (livros_id, autores_id) VALUES (?,?)";
+        String sql = "INSERT INTO autores_tem_livros (livros_id, autores_nome) VALUES (?,?)";
 
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, livros_id);
-            pst.setInt(2, autores_id);
+            pst.setString(2, autores_nome);
             pst.execute();
             sucesso = true;
         } catch (SQLException ex) {
@@ -36,43 +36,16 @@ public class autoresTemLivrosDAO extends ConnectionDAO{
         return sucesso;
     }
 
-    //------------------------DELETAR RELAÇÂO ESPECIFICA NA TABELA N:M DE PEDIDOS E LIVROS----------------------------
-    public boolean deleteAutorFromLivro(int autores_id, int livros_id){
-
-        connect();
-        boolean verifica;
-        String sql = "DELETE FROM autores_tem_livros WHERE autores_id = ? AND livros_id = ?";
-
-        try {
-            pst = connection.prepareStatement(sql);
-            pst.setInt(1, livros_id);
-            pst.setInt(2, autores_id);
-            pst.execute();
-            verifica = true;
-        } catch (SQLException ex) {
-            System.out.println("Erro = " + ex.getMessage());
-            verifica = false;
-        } finally {
-            try {
-                connection.close();
-                pst.close();
-            } catch (SQLException ex) {
-                System.out.println("Erro = " + ex.getMessage());
-            }
-        }
-        return verifica;
-    }
-
     //------------------------DELETAR TODAS AS RELAÇÕES DE UM AUTOR ESPECIFICO----------------------------
-    public boolean deleteFromAutorHasLivro(int autores_id) {
+    public boolean deleteFromAutorHasLivro(String autores_nome) {
 
         connect();
 
-        String sql = "DELETE FROM autores_tem_livros WHERE Autor_idAutor = ?";
+        String sql = "DELETE FROM autores_tem_livros WHERE autores_nome = ?";
 
         try {
             pst = connection.prepareStatement(sql);
-            pst.setInt(1, autores_id);
+            pst.setString(1, autores_nome);
             pst.execute();
             sucesso = true;
         } catch (SQLException ex) {
