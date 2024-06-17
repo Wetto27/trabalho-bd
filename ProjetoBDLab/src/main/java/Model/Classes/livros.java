@@ -11,7 +11,6 @@ public class livros {
 
     //Construtor dos livros
 
-
     public livros(int id, String titulo, String autores, String tema, String empregado_cpf) {
         this.id = id;
         this.titulo = titulo;

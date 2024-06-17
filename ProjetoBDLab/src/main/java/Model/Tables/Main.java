@@ -3,6 +3,7 @@ package Model.Tables;
 import Model.Classes.autores;
 import Model.Classes.empregados;
 import Model.Classes.livros;
+import Model.Classes.pedidos;
 import Model.Tables.DAO.*;
 
 import java.util.ArrayList;
@@ -13,15 +14,11 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         Boolean flag = true;
-        Boolean flag2;
-        Boolean flag3;
-        Boolean flag4;
 
         livrosDAO livroDAO = new livrosDAO();
-        historicoDAO historicosDAO = new historicoDAO();
+        pedidosDAO pedidoDAO = new pedidosDAO();
         autoresDAO autorDAO = new autoresDAO();
         empregadoDAO empregadosDAO = new empregadoDAO();
-        autoresTemLivrosDAO autorTemLivroDAO = new autoresTemLivrosDAO();
 
         // Informacoes do funcionário
         String nomeFunc;
@@ -46,6 +43,12 @@ public class Main {
         String autores;
         String tema;
         String empregado_cpf;
+
+        // Informacoes do pedido
+        int idPedido;
+        String dataPedido;
+        String livrosPedido;
+        String clientePedido;
 
 
         while (flag) {
@@ -243,6 +246,47 @@ public class Main {
                     System.out.println("\n=============================================================");
                     System.out.println("                       Menu de Pedidos                       ");
                     System.out.println("=============================================================");
+                    System.out.println("1 - Adicionar pedido");
+                    System.out.println("2 - Deletar pedido");
+                    System.out.println("3 - Mostrar todos autores");
+                    System.out.println("4 - Alterar email do autor");
+                    int op5 = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (op5) {
+                        case 1:
+                            System.out.println("\n===============================================================");
+                            System.out.println("                    Adicionando novo pedido                    ");
+                            System.out.println("===============================================================");
+
+                            System.out.println("\nPor favor entre com as informações abaixo: ");
+
+                            System.out.print("\nID: ");
+                            idPedido = sc.nextInt(); //Entrando com o id do pedido
+                            sc.nextLine();
+
+                            System.out.println("Livros: ");
+                            livrosPedido = sc.nextLine(); //Entrando com os livros do pedido
+
+                            System.out.print("Data: ");
+                            dataPedido = sc.nextLine(); //Entrando com a data do pedido
+
+                            System.out.println("CPF do Cliente");
+                            clientePedido = sc.nextLine();
+
+                            pedidos pedido = new pedidos(idPedido, livrosPedido, dataPedido, clientePedido);
+                            pedidoDAO.insertpedidos(pedido);  // Inserindo na tabela o empregado criado
+                            break;
+
+                        case 2:
+                            System.out.println("\n============================================================");
+                            System.out.println("                      Deletando Pedido                      ");
+                            System.out.println("============================================================");
+                            System.out.println("CPF do cliente: ");
+                            clientePedido = sc.nextLine();
+                            pedidoDAO.deletePedido(clientePedido);
+                            break;
+                    }
                     break;
 
                 case 6:

@@ -14,10 +14,6 @@ public class empregados {
         this.email = email;
     }
 
-    public empregados(String cpf) {
-        this.cpf = cpf;
-    }
-
     // Getters dos empregados
 
     public String getCpf() {

@@ -13,10 +13,6 @@ public class autores {
         this.email = email;
     }
 
-    public autores(int id) {
-        this.id = id;
-    }
-
     // Getters de autores
 
     public int getId() {
