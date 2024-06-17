@@ -53,16 +53,21 @@ public class Main {
             System.out.println("|                   Sistema da Biblioteca                    |");
             System.out.println("+------------------------------------------------------------+");
             System.out.println("\nPor favor selecione uma das opções abaixo: ");
-            System.out.println("1 - Opcoes para funcionario");
-            System.out.println("2 - Opcoes para livro");
-            System.out.println("3 - Opcoes para autor");
-            System.out.println("4 - Sair");
+            System.out.println("1 - Menu de funcionarios");
+            System.out.println("2 - Menu de livros");
+            System.out.println("3 - Menu de autores");
+            System.out.println("4 - Menu de clientes");
+            System.out.println("5 - Menu de pedidos");
+            System.out.println("6 - Sair");
             int op = sc.nextInt();
             sc.nextLine();
 
             switch (op) {
 
                 case 1:
+                    System.out.println("\n==============================================================");
+                    System.out.println("                     Menu de Funcionários                     ");
+                    System.out.println("==============================================================");
                     System.out.println("1 - Adicionar funcionario");
                     System.out.println("2 - Deletar funcionario");
                     int op1 = sc.nextInt();
@@ -70,9 +75,9 @@ public class Main {
 
                     switch (op1) {
                         case 1:
-                            System.out.println("\n===============================================================");
-                            System.out.println("                   Criação de novo empregado                   ");
-                            System.out.println("===============================================================");
+                            System.out.println("\n==============================================================");
+                            System.out.println("                   Adicionar novo empregado                   ");
+                            System.out.println("==============================================================");
 
                             System.out.println("\nPor favor entre com as informações abaixo: ");
 
@@ -98,6 +103,9 @@ public class Main {
                     break;
 
                 case 2:
+                    System.out.println("\n==============================================================");
+                    System.out.println("                        Menu de Livros                        ");
+                    System.out.println("==============================================================");
                     System.out.println("1 - Adicionar livro");
                     System.out.println("2 - Listar livros");
                     System.out.println("3 - Buscar livro pelo titulo");
@@ -136,6 +144,8 @@ public class Main {
                             break;
 
                         case 2:
+                            System.out.println("\n==============================================================");
+                            System.out.println("                      Livros cadastrados                      ");
                             System.out.println("==============================================================");
 
                             ArrayList<livros> listaDeLivros = livroDAO.selectLivro();
@@ -145,7 +155,9 @@ public class Main {
                             break;
 
                         case 3:
-                            System.out.println("==============================================================");
+                            System.out.println("\n=============================================================");
+                            System.out.println("                       Pesquisar Livro                       ");
+                            System.out.println("=============================================================");
                             String tituloProcurado;
                             tituloProcurado = sc.nextLine();
 
@@ -159,6 +171,9 @@ public class Main {
                     break;
 
                 case 3:
+                    System.out.println("\n=============================================================");
+                    System.out.println("                       Menu de Autores                       ");
+                    System.out.println("=============================================================");
                     System.out.println("1 - Adicionar autor");
                     System.out.println("2 - Deletar autor");
                     System.out.println("3 - Mostrar todos autores");
@@ -219,6 +234,18 @@ public class Main {
                     break;
 
                 case 4:
+                    System.out.println("\n==============================================================");
+                    System.out.println("                       Menu de Clientes                       ");
+                    System.out.println("==============================================================");
+                    break;
+
+                case 5:
+                    System.out.println("\n=============================================================");
+                    System.out.println("                       Menu de Pedidos                       ");
+                    System.out.println("=============================================================");
+                    break;
+
+                case 6:
                     flag = false;
                     break;
             }
