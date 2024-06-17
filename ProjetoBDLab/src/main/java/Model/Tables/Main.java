@@ -1,8 +1,6 @@
 package Model.Tables;
 
-import Model.Classes.autores;
-import Model.Classes.empregados;
-import Model.Classes.livros;
+import Model.Classes.*;
 import Model.Tables.DAO.*;
 
 import java.util.ArrayList;
@@ -13,15 +11,12 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         Boolean flag = true;
-        Boolean flag2;
-        Boolean flag3;
-        Boolean flag4;
 
         livrosDAO livroDAO = new livrosDAO();
-        historicoDAO historicosDAO = new historicoDAO();
+        pedidosDAO pedidoDAO = new pedidosDAO();
         autoresDAO autorDAO = new autoresDAO();
         empregadoDAO empregadosDAO = new empregadoDAO();
-        autoresTemLivrosDAO autorTemLivroDAO = new autoresTemLivrosDAO();
+        clientesDAO clienteDAO = new clientesDAO();
 
         // Informacoes do funcionário
         String nomeFunc;
@@ -37,8 +32,7 @@ public class Main {
         String nomeCliente;
         String emailCliente;
         String cpfCliente;
-        int historico;
-        String fk_empregadoCPF;
+        String fk_empregado_cpf;
 
         // Informacoes do livro
         int idLivro;
@@ -47,22 +41,33 @@ public class Main {
         String tema;
         String empregado_cpf;
 
+        // Informacoes do pedido
+        int idPedido;
+        String dataPedido;
+        String livrosPedido;
+        String clientePedido;
+
 
         while (flag) {
             System.out.println("\n+------------------------------------------------------------+");
             System.out.println("|                   Sistema da Biblioteca                    |");
             System.out.println("+------------------------------------------------------------+");
             System.out.println("\nPor favor selecione uma das opções abaixo: ");
-            System.out.println("1 - Opcoes para funcionario");
-            System.out.println("2 - Opcoes para livro");
-            System.out.println("3 - Opcoes para autor");
-            System.out.println("4 - Sair");
+            System.out.println("1 - Menu de funcionarios");
+            System.out.println("2 - Menu de livros");
+            System.out.println("3 - Menu de autores");
+            System.out.println("4 - Menu de clientes");
+            System.out.println("5 - Menu de pedidos");
+            System.out.println("6 - Sair");
             int op = sc.nextInt();
             sc.nextLine();
 
             switch (op) {
 
                 case 1:
+                    System.out.println("\n==============================================================");
+                    System.out.println("                     Menu de Funcionários                     ");
+                    System.out.println("==============================================================");
                     System.out.println("1 - Adicionar funcionario");
                     System.out.println("2 - Deletar funcionario");
                     int op1 = sc.nextInt();
@@ -70,9 +75,9 @@ public class Main {
 
                     switch (op1) {
                         case 1:
-                            System.out.println("\n===============================================================");
-                            System.out.println("                   Criação de novo empregado                   ");
-                            System.out.println("===============================================================");
+                            System.out.println("\n==============================================================");
+                            System.out.println("                   Adicionar novo empregado                   ");
+                            System.out.println("==============================================================");
 
                             System.out.println("\nPor favor entre com as informações abaixo: ");
 
@@ -98,6 +103,9 @@ public class Main {
                     break;
 
                 case 2:
+                    System.out.println("\n==============================================================");
+                    System.out.println("                        Menu de Livros                        ");
+                    System.out.println("==============================================================");
                     System.out.println("1 - Adicionar livro");
                     System.out.println("2 - Listar livros");
                     System.out.println("3 - Buscar livro pelo titulo");
@@ -136,6 +144,8 @@ public class Main {
                             break;
 
                         case 2:
+                            System.out.println("\n==============================================================");
+                            System.out.println("                      Livros cadastrados                      ");
                             System.out.println("==============================================================");
 
                             ArrayList<livros> listaDeLivros = livroDAO.selectLivro();
@@ -145,7 +155,9 @@ public class Main {
                             break;
 
                         case 3:
-                            System.out.println("==============================================================");
+                            System.out.println("\n=============================================================");
+                            System.out.println("                       Pesquisar Livro                       ");
+                            System.out.println("=============================================================");
                             String tituloProcurado;
                             tituloProcurado = sc.nextLine();
 
@@ -159,6 +171,9 @@ public class Main {
                     break;
 
                 case 3:
+                    System.out.println("\n=============================================================");
+                    System.out.println("                       Menu de Autores                       ");
+                    System.out.println("=============================================================");
                     System.out.println("1 - Adicionar autor");
                     System.out.println("2 - Deletar autor");
                     System.out.println("3 - Mostrar todos autores");
@@ -197,11 +212,11 @@ public class Main {
                             break;
 
                         case 3:
-                        System.out.println("\n===============================================================");
-                        System.out.println("                      Autores Cadastrados                      ");
-                        System.out.println("===============================================================");
-                        autorDAO.selectAutor();
-                        break;
+                            System.out.println("\n===============================================================");
+                            System.out.println("                      Autores Cadastrados                      ");
+                            System.out.println("===============================================================");
+                            autorDAO.selectAutor();
+                            break;
 
                         case 4:
                             System.out.println("\n===============================================================");
@@ -219,6 +234,126 @@ public class Main {
                     break;
 
                 case 4:
+                    System.out.println("\n==============================================================");
+                    System.out.println("                       Menu de Clientes                       ");
+                    System.out.println("==============================================================");
+                    System.out.println("1 - Adicionar cliente");
+                    System.out.println("2 - Alterar cliente");
+                    System.out.println("3 - Deletar cliente");
+                    System.out.println("4 - Procurar cliente");
+                    int op4 = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (op4) {
+                        case 1:
+                            System.out.println("Nome: ");
+                            nomeCliente = sc.next();
+                            System.out.println("Email: ");
+                            emailCliente = sc.next();
+                            System.out.println("CPF do cliente: ");
+                            cpfCliente = sc.next();
+                            System.out.println("CPF do empregado: ");
+                            fk_empregado_cpf = sc.next();
+
+                            clientes novoCliente = new clientes(nomeCliente, emailCliente, cpfCliente, fk_empregado_cpf);
+                            boolean inserido = clienteDAO.insertCliente(novoCliente);
+                            if (inserido) {
+                                System.out.println("Cliente adicionado com sucesso!");
+                            } else {
+                                System.out.println("Erro ao adicionar cliente.");
+                            }
+                            break;
+
+                        case 2:
+                            System.out.println("Digite o CPF do cliente que deseja alterar:");
+                            cpfCliente = sc.next();
+
+                            System.out.println("Digite o novo nome do cliente:");
+                            nomeCliente = sc.next();
+                            System.out.println("Digite o novo email do cliente:");
+                            emailCliente = sc.next();
+                            System.out.println("Digite o novo CPF do empregado associado:");
+                            fk_empregado_cpf = sc.next();
+
+                            clientes modCliente = new clientes(nomeCliente, emailCliente, cpfCliente, fk_empregado_cpf);
+                            boolean alterado = clienteDAO.updateCliente(cpfCliente, modCliente);
+                            if (alterado) {
+                                System.out.println("Cliente alterado com sucesso!");
+                            } else {
+                                System.out.println("Erro ao alterar cliente.");
+                            }
+                            break;
+
+                        case 3:
+                            System.out.println("Digite o CPF do cliente que deseja deletar:");
+                            cpfCliente = sc.next();
+
+                            boolean deletado = clienteDAO.deleteCliente(cpfCliente);
+                            if (deletado) {
+                                System.out.println("Cliente deletado com sucesso!");
+                            } else {
+                                System.out.println("Erro ao deletar cliente.");
+                            }
+                            break;
+
+                        case 4:
+                            System.out.println("Digite o CPF do cliente que deseja selecionar:");
+                            cpfCliente = sc.next();
+
+                            clienteDAO.selectCliente(cpfCliente);
+                            break;
+                    }
+
+                    break;
+
+                case 5:
+                    System.out.println("\n=============================================================");
+                    System.out.println("                       Menu de Pedidos                       ");
+                    System.out.println("=============================================================");
+                    System.out.println("1 - Adicionar pedido");
+                    System.out.println("2 - Deletar pedido");
+                    System.out.println("3 - Mostrar todos autores");
+                    System.out.println("4 - Alterar email do autor");
+                    int op5 = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (op5) {
+                        case 1:
+                            System.out.println("\n===============================================================");
+                            System.out.println("                    Adicionando novo pedido                    ");
+                            System.out.println("===============================================================");
+
+                            System.out.println("\nPor favor entre com as informações abaixo: ");
+
+                            System.out.print("\nID: ");
+                            idPedido = sc.nextInt(); //Entrando com o id do pedido
+                            sc.nextLine();
+
+                            System.out.println("Livros: ");
+                            livrosPedido = sc.nextLine(); //Entrando com os livros do pedido
+
+                            System.out.print("Data: ");
+                            dataPedido = sc.nextLine(); //Entrando com a data do pedido
+
+                            System.out.println("CPF do Cliente");
+                            clientePedido = sc.nextLine();
+
+                            pedidos pedido = new pedidos(idPedido, livrosPedido, dataPedido, clientePedido);
+                            pedidoDAO.insertpedidos(pedido);  // Inserindo na tabela o empregado criado
+                            break;
+
+                        case 2:
+                            System.out.println("\n============================================================");
+                            System.out.println("                      Deletando Pedido                      ");
+                            System.out.println("============================================================");
+                            System.out.println("CPF do cliente: ");
+                            clientePedido = sc.nextLine();
+                            pedidoDAO.deletePedido(clientePedido);
+                            break;
+                    }
+                    break;
+
+                case 6:
                     flag = false;
                     break;
             }
