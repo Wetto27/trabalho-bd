@@ -1,9 +1,11 @@
 package Model.Tables.DAO;
 
 import Model.Classes.pedidos;
+import Model.Tables.DAO.ConnectionDAO;
+
 import java.sql.SQLException;
 
-public class pedidosDAO extends ConnectionDAO{
+public class pedidosDAO extends ConnectionDAO {
 
     boolean sucesso = false;
 
@@ -61,3 +63,4 @@ public class pedidosDAO extends ConnectionDAO{
         return sucesso;
     }
 }
+

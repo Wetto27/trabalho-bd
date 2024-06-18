@@ -1,14 +1,14 @@
 package Model.Classes;
 
 public class pedidos {
-
     //Atributos do historico
+
     private String Pk_cpfCliente;
     private int idPedido;
     private String livros;
     private String data;
 
-    public pedidos(int idPedido, String livros, String data,String pk_cpfCliente) {
+    public pedidos(int idPedido, String livros, String data, String pk_cpfCliente) {
         Pk_cpfCliente = pk_cpfCliente;
         this.idPedido = idPedido;
         this.livros = livros;
@@ -32,3 +32,5 @@ public class pedidos {
     }
 
 }
+
+
