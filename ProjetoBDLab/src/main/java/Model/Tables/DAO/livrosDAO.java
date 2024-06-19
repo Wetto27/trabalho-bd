@@ -56,7 +56,11 @@ public class livrosDAO extends ConnectionDAO{
                         resultSet.getString("Tema"),
                         resultSet.getString("empregado_cpf")
                 );
-                listaDeLivros.add(livroTemp);
+                System.out.println("ID = " + livroTemp.getId());
+                System.out.println("Título = " + livroTemp.getTitulo());
+                System.out.println("Autor(es) = " + livroTemp.getAutores());
+                System.out.println("Tema = " + livroTemp.getTema());
+                System.out.println("---------------------------------");
             }
         } catch (SQLException ex) {
             System.out.println("Erro = " + ex.getMessage());
@@ -85,8 +89,12 @@ public class livrosDAO extends ConnectionDAO{
             resultSet = pst.executeQuery();
 
             while(resultSet.next()) {
-                livros livroTemp = new livros(resultSet.getInt("Idlivro"), resultSet.getString("Titulo"), resultSet.getString("Autores"), resultSet.getString("Tema"),resultSet.getString("empregado_cpf"));
+                livros livroTemp = new livros(resultSet.getInt("id"), resultSet.getString("Titulo"), resultSet.getString("Autores"), resultSet.getString("Tema"),resultSet.getString("empregado_cpf"));
                 if(livroTemp.getTitulo().equalsIgnoreCase(tituloLivro)) {
+                    System.out.println("ID = " + livroTemp.getId());
+                    System.out.println("Título = " + livroTemp.getTitulo());
+                    System.out.println("Autor(es) = " + livroTemp.getAutores());
+                    System.out.println("Tema = " + livroTemp.getTema());
                     verificado = true;
                 }
             }
@@ -102,38 +110,4 @@ public class livrosDAO extends ConnectionDAO{
         }
         return verificado;
     }
-
-    //------------------------BUSCAR AUTOR DE LIVRO ESPECIFICO NO DATABASE----------------------------
-    public String selectLivroAutores(int Id_Livro) {
-
-        connect();
-
-        String autores = null;
-        String sql = "SELECT * FROM livros WHERE IdLivro = ?";
-
-        try {
-
-            pst = connection.prepareStatement(sql);
-            pst.setInt(1, Id_Livro);
-            resultSet = pst.executeQuery();
-
-            while(resultSet.next()) {
-                livros livroTemp = new livros(resultSet.getInt("Idlivro"), resultSet.getString("Titulo"), resultSet.getString("Autores"), resultSet.getString("Tema"),resultSet.getString("empregado_cpf"));
-                autores = livroTemp.getAutores();
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro = " + ex.getMessage());
-        } finally {
-            try {
-                connection.close();
-                pst.close();
-            } catch (SQLException ex) {
-                System.out.println("Erro = " + ex.getMessage());
-            }
-        }
-        return autores;
-
-    }
-
-
 }

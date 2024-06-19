@@ -102,7 +102,7 @@ public class empregadoDAO extends ConnectionDAO {
         return nome;
     }
 
-    // deletando empregado
+    //------------------------DELETANDO ESPECÌFICO NO DATABASE----------------------------
     public boolean deleteEmpregado(String cpf) {
 
         connect();

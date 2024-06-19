@@ -7,12 +7,14 @@ public class pedidos {
     private int idPedido;
     private String livros;
     private String data;
+    private String status;
 
-    public pedidos(int idPedido, String livros, String data, String pk_cpfCliente) {
-        Pk_cpfCliente = pk_cpfCliente;
+    public pedidos(int idPedido, String livros, String data, String status, String pk_cpfCliente) {
         this.idPedido = idPedido;
         this.livros = livros;
         this.data = data;
+        this.status = status;
+        Pk_cpfCliente = pk_cpfCliente;
     }
 
     public String getPk_cpfCliente() {
@@ -31,6 +33,9 @@ public class pedidos {
         return data;
     }
 
+    public String getStatus() {
+        return status;
+    }
 }
 
 

@@ -70,7 +70,7 @@ public class clientesDAO extends ConnectionDAO {
                 System.out.println("Nome: " + resultSet.getString("nome"));
                 System.out.println("Email: " + resultSet.getString("email"));
                 System.out.println("CPF: " + resultSet.getString("cpf"));
-                System.out.println("FK Empregado CPF: " + resultSet.getString("fk_empregado_cpf"));
+                System.out.println("Empregado CPF: " + resultSet.getString("empregado_cpf"));
                 System.out.println("---------------------------------");
             }
         } catch (SQLException ex) {
