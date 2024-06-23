@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 public class clientesDAO extends ConnectionDAO {
 
+    //------------------------INSERIR NOVO REGISTRO DE CLIENTE NO DATABASE----------------------------
     public boolean insertCliente(clientes cliente) {
         connect();
         String sql = "INSERT INTO clientes (nome, email, cpf, empregado_cpf) VALUES (?, ?, ?, ?)";
@@ -24,6 +25,7 @@ public class clientesDAO extends ConnectionDAO {
         }
     }
 
+    //------------------------ALTERANDO INFORMAÇÕES DO CLIENTE NO DATABASE----------------------------
     public boolean updateCliente(String cpf, clientes novoCliente) {
         connect();
         String sql = "UPDATE clientes SET nome = ?, email = ?, empregado_cpf = ? WHERE cpf = ?";
@@ -43,6 +45,7 @@ public class clientesDAO extends ConnectionDAO {
         }
     }
 
+    //------------------------DELETANDO CLIENTE ESPECÌFICO NO DATABASE----------------------------
     public boolean deleteCliente(String cpf) {
         connect();
         String sql = "DELETE FROM clientes WHERE cpf = ?";
@@ -59,6 +62,7 @@ public class clientesDAO extends ConnectionDAO {
         }
     }
 
+    //------------------------PROCURANDO CLIENTE ESPECÌFICO NO DATABASE PELO CPF----------------------------
     public void selectCliente(String cpf) {
         connect();
         String sql = "SELECT * FROM clientes WHERE cpf = ?";

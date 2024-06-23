@@ -11,6 +11,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         boolean flag = true;
 
+        // Instancias das tabelas conectadas ao mysql
         livrosDAO livroDAO = new livrosDAO();
         pedidosDAO pedidoDAO = new pedidosDAO();
         autoresDAO autorDAO = new autoresDAO();
@@ -122,7 +123,7 @@ public class Main {
                             System.out.println("\nPor favor entre com as informações abaixo: ");
                             System.out.print("\nID: ");
                             idLivro = sc.nextInt();
-                            sc.nextLine(); // Consumir a nova linha
+                            sc.nextLine();
 
                             System.out.print("Título: ");
                             titulo = sc.nextLine();
@@ -273,10 +274,10 @@ public class Main {
                             System.out.println("\n==============================================================");
                             System.out.println("                Alterar informações do cliente                ");
                             System.out.println("==============================================================");
-                            System.out.println("Digite o CPF do cliente:");
+                            System.out.println("Digite o novo CPF do cliente:");
                             cpfCliente = sc.next();
 
-                            System.out.println("Digite o nome do cliente:");
+                            System.out.println("Digite o novo nome do cliente:");
                             nomeCliente = sc.next();
                             System.out.println("Digite o novo email do cliente:");
                             emailCliente = sc.next();
